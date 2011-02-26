@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoNET", "TodoNET\TodoNET.csproj", "{833ADD4D-4E9D-4541-AFE7-6E04FD189BDC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoNET.Tests", "TodoNET.Tests\TodoNET.Tests.csproj", "{F1C3BC16-8FEE-4CCB-8CFB-64DFDC9FE813}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TodoNET.Model", "TodoNET.Model\TodoNET.Model.csproj", "{59DA1910-CDCD-46B3-9EDC-449859E5D849}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{833ADD4D-4E9D-4541-AFE7-6E04FD189BDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{833ADD4D-4E9D-4541-AFE7-6E04FD189BDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{833ADD4D-4E9D-4541-AFE7-6E04FD189BDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{833ADD4D-4E9D-4541-AFE7-6E04FD189BDC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1C3BC16-8FEE-4CCB-8CFB-64DFDC9FE813}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1C3BC16-8FEE-4CCB-8CFB-64DFDC9FE813}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1C3BC16-8FEE-4CCB-8CFB-64DFDC9FE813}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1C3BC16-8FEE-4CCB-8CFB-64DFDC9FE813}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59DA1910-CDCD-46B3-9EDC-449859E5D849}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59DA1910-CDCD-46B3-9EDC-449859E5D849}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59DA1910-CDCD-46B3-9EDC-449859E5D849}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59DA1910-CDCD-46B3-9EDC-449859E5D849}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

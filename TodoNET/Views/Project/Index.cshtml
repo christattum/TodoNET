@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TodoNET.Model.Item>
+@{
+    ViewBag.Title = "Index2";
+}
+
+<h2>Index2</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            Summary
+        </th>
+        <th>
+            Detail
+        </th>
+        <th>
+            CompletedDate
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ItemId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ItemId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ItemId })
+        </td>
+        <td>
+            @item.Summary
+        </td>
+        <td>
+            @item.Detail
+        </td>
+        <td>
+            @String.Format("{0:g}", item.CompletedDate)
+        </td>
+    </tr>
+}
+
+</table>
+
+

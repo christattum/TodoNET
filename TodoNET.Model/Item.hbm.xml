@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+				   assembly="TodoNET.Model"
+				   namespace="TodoNET.Model">
+    <class name="Item"
+		   table="Items" >
+
+        <id name="ItemId" type="Int32">
+            <generator class="identity"/>
+        </id>
+        <property name="Summary" column="Summary" type="string" not-null="true"/>
+        <property name="Detail" column="Detail" type="string" not-null="false" />
+        <property name="CompletedDate" column="CompletedDate" type="datetime" not-null="false" />
+        <many-to-one name="Project" column="ProjectId"></many-to-one>
+    </class>
+</hibernate-mapping>
