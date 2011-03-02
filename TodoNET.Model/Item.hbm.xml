@@ -11,6 +11,6 @@
         <property name="Summary" column="Summary" type="string" not-null="true"/>
         <property name="Detail" column="Detail" type="string" not-null="false" />
         <property name="CompletedDate" column="CompletedDate" type="datetime" not-null="false" />
-        <many-to-one name="Project" column="ProjectId"></many-to-one>
+        <many-to-one class="Project" name="Project" column="ProjectId" not-null="true"></many-to-one>
     </class>
 </hibernate-mapping>
