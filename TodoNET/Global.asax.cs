@@ -42,6 +42,7 @@ namespace TodoNET
             var cfg = new Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nhibernate.config"));
             cfg.SetProperty(NHibernate.Cfg.Environment.ConnectionStringName, System.Environment.MachineName);
             //NHibernateProfiler.Initialize();
+            log4net.Config.XmlConfigurator.Configure();
 
             return cfg.BuildSessionFactory();
 
