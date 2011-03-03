@@ -33,6 +33,14 @@ namespace TodoNET.Controllers
             return View(items);
         }
 
+        public ActionResult Edit(int id)
+        {
+            var item = Db.Get<Item>(id);
+
+            return View(item);
+
+        }
+
 
     }
 }
