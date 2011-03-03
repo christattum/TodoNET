@@ -18,9 +18,6 @@ namespace TodoNET.Controllers
             Db = session;
         }
 
-        //
-        // GET: /Project/
-
         public ActionResult Index()
         {
             // pull the data directly from database
@@ -35,6 +32,7 @@ namespace TodoNET.Controllers
 
             return View(items);
         }
+
 
     }
 }

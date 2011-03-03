@@ -7,7 +7,7 @@ namespace TodoNET.Model
 {
     public class Item
     {
-        public virtual int ItemId { get; protected set; }
+        public virtual int Id { get; protected set; }
         public virtual string Summary { get; set; }
         public virtual string Detail { get; set; }
         public virtual DateTime? CompletedDate { get; set; }
