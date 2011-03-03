@@ -28,6 +28,7 @@ namespace TodoNET.Controllers
             ICriteria criteria = Db.CreateCriteria<Item>();
             IList<Item> items = criteria.List<Item>();
 
+
             return View(items);
         }
 
