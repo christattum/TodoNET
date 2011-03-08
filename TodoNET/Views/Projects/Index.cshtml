@@ -1,0 +1,31 @@
+﻿@model IEnumerable<TodoNET.Model.Project>
+@{
+    ViewBag.Title = "Projects";
+}
+
+<h2>Projects</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+    @{
+        var grid = new WebGrid(Model, canPage: true, rowsPerPage: 5);
+        grid.Pager(WebGridPagerModes.NextPrevious);
+        @grid.GetHtml(tableStyle: "webGrid",
+            htmlAttributes: new { id = "DataTable" },
+            headerStyle: "header",
+            alternatingRowStyle: "alt",
+            columns: grid.Columns(
+                grid.Column(format: (project) => 
+                    new HtmlString(Html.ActionLink("Edit", "Edit", new { id = project.id } ).ToString()  + " | " + 
+                                   Html.ActionLink("Delete", "Delete", new { id = project.id } ).ToString()  + " | " + 
+                                   Html.ActionLink("Items", "Index", "Items", new { projectid = project.id }, null ).ToString()
+                    )
+                ),
+                grid.Column("Name"),
+                grid.Column("Description")
+            )
+       );
+
+    }
