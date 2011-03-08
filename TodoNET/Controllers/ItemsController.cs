@@ -21,9 +21,17 @@ namespace TodoNET.Controllers
             //var project = Db.Get<Project>(projectId);
             //IEnumerable<Item> items = project.Items;
 
+            // paging
+            int maxResults = 5;
+            int firstResult = 5*((page ?? 1) - 1);
+
+            // TODO: We need to pass throught he total number of items though, not just in the collection
+
             // This loads the project and all items in one go rather than lazily
             var project = Db.CreateCriteria<Project>()
                 .SetFetchMode("Items", FetchMode.Eager)
+                .SetMaxResults(maxResults)
+                .SetFirstResult(firstResult)
                 .Add(Restrictions.Eq("Id", projectId))
                 .UniqueResult<Project>();
 
