@@ -5,21 +5,19 @@ using TodoNET.Model;
 
 namespace TodoNET.Controllers
 {
-    public class ProjectController : Controller
+    public class ItemController : Controller
     {
-        public ISession Db { get; private set; }
+         public ISession Db { get; private set; }
 
-        public ProjectController(ISession session)
+        public ItemController(ISession session)
         {
             Db = session;
         }
 
         public ActionResult Index()
         {
-            // using ICriteria
-            ICriteria criteria = Db.CreateCriteria<Project>();
-            IList<Project> items = criteria.List<Project>();
-
+            ICriteria criteria = Db.CreateCriteria<Item>();
+            IList<Item> items = criteria.List<Item>();
 
             return View(items);
         }
@@ -28,19 +26,22 @@ namespace TodoNET.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var item = Db.Get<Project>(id);
+            var item = Db.Get<Item>(id);
 
             return View(item);
         }
 
         [HttpPost]
-        public ActionResult Edit(int id, Project formItem)
+        public ActionResult Edit(int id, Item formItem)
         {
             if (ModelState.IsValid)
             {
-                var item = Db.Get<Project>(id);
+                var item = Db.Get<Item>(id);
                 if (item != null)
                 {
+                    item.Summary = formItem.Summary;
+                    item.CompletedDate = formItem.CompletedDate;
+                    item.Detail = formItem.Detail;
 
                     var tx = Db.BeginTransaction();
 
@@ -50,11 +51,12 @@ namespace TodoNET.Controllers
 
                     return RedirectToAction("Index");
                 }
-            
+
             }
 
             return View(formItem);
         }
+
 
     }
 }

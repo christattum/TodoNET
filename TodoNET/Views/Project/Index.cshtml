@@ -1,9 +1,9 @@
-﻿@model IEnumerable<TodoNET.Model.Item>
+﻿@model IEnumerable<TodoNET.Model.Project>
 @{
-    ViewBag.Title = "Index2";
+    ViewBag.Title = "Projects";
 }
 
-<h2>Index2</h2>
+<h2>Projects</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -17,20 +17,15 @@
             headerStyle: "header",
             alternatingRowStyle: "alt",
             columns: grid.Columns(
-                grid.Column(format: (item) => 
-                    new HtmlString(Html.ActionLink("Edit", "Edit", new { id = item.id } ).ToString()  + " | " + 
-                                   Html.ActionLink("Delete", "Delete", new { id = item.id } ).ToString() 
+                grid.Column(format: (project) => 
+                    new HtmlString(Html.ActionLink("Edit", "Edit", new { id = project.id } ).ToString()  + " | " + 
+                                   Html.ActionLink("Delete", "Delete", new { id = project.id } ).ToString()  + " | " + 
+                                   Html.ActionLink("Items", "Index", "Item", new { projectid = project.id }, null ).ToString()
                     )
                 ),
-                grid.Column("Summary"),
-                grid.Column("Detail"),
-                grid.Column("CompletedDate")
+                grid.Column("Name"),
+                grid.Column("Description")
             )
        );
 
     }
-
-
-
-
-
