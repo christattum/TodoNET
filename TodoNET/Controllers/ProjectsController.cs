@@ -14,7 +14,7 @@ namespace TodoNET.Controllers
             Db = session;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             // using ICriteria
             ICriteria criteria = Db.CreateCriteria<Project>();

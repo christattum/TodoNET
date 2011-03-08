@@ -15,7 +15,7 @@ namespace TodoNET.Controllers
             Db = session;
         }
 
-        public ActionResult Index(int projectId)
+        public ActionResult Index(int projectId, int? page)
         {
             // read the project and lazy load the items
             //var project = Db.Get<Project>(projectId);
