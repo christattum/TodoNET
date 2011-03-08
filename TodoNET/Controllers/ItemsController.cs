@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using NHibernate;
+using NHibernate.Criterion;
 using TodoNET.Model;
 
 namespace TodoNET.Controllers
@@ -16,10 +17,27 @@ namespace TodoNET.Controllers
 
         public ActionResult Index(int projectId)
         {
-            ICriteria criteria = Db.CreateCriteria<Item>();
-            IList<Item> items = criteria.List<Item>();
+            // read the project and lazy load the items
+            //var project = Db.Get<Project>(projectId);
+            //IEnumerable<Item> items = project.Items;
 
-            return View(items);
+            // This loads the project and all items in one go rather than lazily
+            var project = Db.CreateCriteria<Project>()
+                .SetFetchMode("Items", FetchMode.Eager)
+                .Add(Restrictions.Eq("Id", projectId))
+                .UniqueResult<Project>();
+
+            if (project != null)
+            {
+
+                var items = project.Items;
+
+                return View(items);
+            }
+            else
+            {
+                return Content("Not found!");
+            }
         }
 
 
