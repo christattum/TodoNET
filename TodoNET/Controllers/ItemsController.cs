@@ -24,15 +24,19 @@ namespace TodoNET.Controllers
             int firstResult = 5*((page ?? 1) - 1);
 
 
-            IList<Item> items = Db.CreateCriteria<Item>()
-                                    .Add(Restrictions.Eq("Project.Id", projectId))
+            ICriteria criteria = Db.CreateCriteria<Item>()
+                                    .Add(Restrictions.Eq("Project.Id", projectId));
+
+            ICriteria itemCriteria = CriteriaTransformer.Clone(criteria);
+
+            IList<Item> items = itemCriteria
                                     .SetFirstResult(firstResult)
                                     .SetMaxResults(maxResults)
                                     .List<Item>();
 
 
-            int rowCount = Db.CreateCriteria<Item>()
-                                    .Add(Restrictions.Eq("Project.Id", projectId))
+            ICriteria countCriteria = CriteriaTransformer.Clone(criteria);
+            int rowCount = countCriteria
                                     .SetProjection(Projections.RowCount())
                                     .UniqueResult<int>();
 
