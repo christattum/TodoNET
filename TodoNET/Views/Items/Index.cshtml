@@ -1,4 +1,4 @@
-﻿@model ICollection<TodoNET.Model.Item>
+﻿@model TodoNET.Helpers.PagedList<TodoNET.Model.Item>
 @{
     ViewBag.Title = "items";
 }
@@ -12,7 +12,7 @@
     @{
         var grid = new WebGrid(rowsPerPage: 5); //Model, canPage: true, rowsPerPage: 5);
         var columnNames = new[] {"Summary", "Details", "CompletedDate"};
-        grid.Bind(Model, columnNames, false, Model.Count);
+        grid.Bind(Model, columnNames, false, Model.TotalCount); // the row count
         grid.Pager(WebGridPagerModes.NextPrevious);
         @grid.GetHtml(tableStyle: "webGrid",
             htmlAttributes: new { id = "DataTable" },
