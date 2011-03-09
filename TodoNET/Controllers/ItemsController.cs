@@ -9,7 +9,12 @@ namespace TodoNET.Controllers
 {
     public class ItemsController : Controller
     {
-         public ISession Db { get; private set; }
+        // TODO: pull out all the NHib querying stuff into ItemsService
+        // every controller which needs projecting data into view models etc.
+        // will use its own service.  This is better than trying to write repositories which serve mtuliple use cases
+        // as they become fat and bloated
+
+        public ISession Db { get; private set; }
 
         public ItemsController(ISession session)
         {
