@@ -16,6 +16,14 @@ namespace TodoNET.Helpers
             PageSize = pageSize;
             Page = page;
 
+            // clone criteria so we can count the total rows
+            ICriteria countCriteria = CriteriaTransformer.Clone(criteria);
+            TotalCount = countCriteria
+                            .SetProjection(Projections.RowCount())
+                            .UniqueResult<int>();
+
+
+            // clone criteria so we can filter to a page of T
             ICriteria itemCriteria = CriteriaTransformer.Clone(criteria);
 
             int firstResult = pageSize * (page - 1);
@@ -24,11 +32,7 @@ namespace TodoNET.Helpers
                                 .SetMaxResults(pageSize)
                                 .List<T>();
 
-            ICriteria countCriteria = CriteriaTransformer.Clone(criteria);
-            TotalCount = countCriteria
-                            .SetProjection(Projections.RowCount())
-                            .UniqueResult<int>();
-
+            // add the page of items
             AddRange(items);
         }
 
