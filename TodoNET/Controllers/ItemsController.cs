@@ -19,36 +19,13 @@ namespace TodoNET.Controllers
         public ActionResult Index(int projectId, int? page)
         {
           
-            // paging
-            int maxResults = 5;
-            int firstResult = 5*((page ?? 1) - 1);
-
 
             ICriteria criteria = Db.CreateCriteria<Item>()
                                     .Add(Restrictions.Eq("Project.Id", projectId));
 
-            ICriteria itemCriteria = CriteriaTransformer.Clone(criteria);
+            var pagedItems = new PagedList<Item>(criteria, 5, page ?? 1);
 
-            IList<Item> items = itemCriteria
-                                    .SetFirstResult(firstResult)
-                                    .SetMaxResults(maxResults)
-                                    .List<Item>();
-
-
-            ICriteria countCriteria = CriteriaTransformer.Clone(criteria);
-            int rowCount = countCriteria
-                                    .SetProjection(Projections.RowCount())
-                                    .UniqueResult<int>();
-
-            if (items != null)
-            {
-
-                var pagedItems = new PagedList<Item>(items, rowCount);
-
-                return View(pagedItems);
-            }
-
-            return Content("Not found!");
+            return View(pagedItems);
         }
 
 
