@@ -18,7 +18,6 @@ namespace TodoNET.Controllers
 
         public ActionResult Index(int projectId, int? page)
         {
-          
 
             ICriteria criteria = Db.CreateCriteria<Item>()
                                     .Add(Restrictions.Eq("Project.Id", projectId));

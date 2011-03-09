@@ -24,7 +24,6 @@ namespace TodoNET.Helpers
                                 .SetMaxResults(pageSize)
                                 .List<T>();
 
-
             ICriteria countCriteria = CriteriaTransformer.Clone(criteria);
             TotalCount = countCriteria
                             .SetProjection(Projections.RowCount())

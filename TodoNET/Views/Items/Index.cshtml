@@ -10,7 +10,7 @@
 </p>
 
     @{
-        var grid = new WebGrid(rowsPerPage: 5); //Model, canPage: true, rowsPerPage: 5);
+        var grid = new WebGrid(rowsPerPage: Model.PageSize);
         var columnNames = new[] {"Summary", "Details", "CompletedDate"};
         grid.Bind(Model, columnNames, false, Model.TotalCount); // the row count
         grid.Pager(WebGridPagerModes.NextPrevious);
@@ -30,4 +30,8 @@
             )
        );
 
+       if (Model.TotalCount == 0) {
+          <p>No items found!</p>
+       }
+        
     }
