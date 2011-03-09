@@ -16,21 +16,30 @@ namespace TodoNET.Controllers
 
         public ActionResult Index(int? page)
         {
-            // using ICriteria
-            ICriteria criteria = Db.CreateCriteria<Project>();
-            IList<Project> items = criteria.List<Project>();
+            using (var tx = Db.BeginTransaction())
+            {
+                ICriteria criteria = Db.CreateCriteria<Project>();
+                IList<Project> items = criteria.List<Project>();
 
+                tx.Commit();
 
-            return View(items);
+                return View(items);
+            }
+
         }
 
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var item = Db.Get<Project>(id);
+            using (var tx = Db.BeginTransaction())
+            {
+                var item = Db.Get<Project>(id);
 
-            return View(item);
+                tx.Commit();
+
+                return View(item);
+            }
         }
 
         [HttpPost]
@@ -44,11 +53,11 @@ namespace TodoNET.Controllers
                     project.Name = formProject.Name;
                     project.Description = formProject.Description;
 
-                    var tx = Db.BeginTransaction();
-
-                    Db.Update(project);
-
-                    tx.Commit();
+                    using (var tx = Db.BeginTransaction())
+                    {
+                        Db.Update(project);
+                        tx.Commit();
+                    }
 
                     return RedirectToAction("Index");
                 }

@@ -18,21 +18,30 @@ namespace TodoNET.Controllers
 
         public ActionResult Index(int projectId, int? page, string sort, string sortdir)
         {
-            ICriteria criteria = Db.CreateCriteria<Item>()
-                                    .Add(Restrictions.Eq("Project.Id", projectId));
+            using (var tx = Db.BeginTransaction())
+            {
+                ICriteria criteria = Db.CreateCriteria<Item>()
+                    .Add(Restrictions.Eq("Project.Id", projectId));
 
-            var pagedItems = PagedList<Item>.CreatePagedList(criteria, 5, page ?? 1, sort, sortdir);
+                var pagedItems = PagedList<Item>.CreatePagedList(criteria, 5, page ?? 1, sort, sortdir);
 
-            return View(pagedItems);
+                tx.Commit();
+
+                return View(pagedItems);
+            }
         }
 
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            var item = Db.Get<Item>(id);
+            using (var tx = Db.BeginTransaction())
+            {
+                var item = Db.Get<Item>(id);
+                tx.Commit();
 
-            return View(item);
+                return View(item);
+            }
         }
 
         [HttpPost]
@@ -40,20 +49,20 @@ namespace TodoNET.Controllers
         {
             if (ModelState.IsValid)
             {
-                var item = Db.Get<Item>(id);
-                if (item != null)
+                using (var tx = Db.BeginTransaction())
                 {
-                    item.Summary = formItem.Summary;
-                    item.CompletedDate = formItem.CompletedDate;
-                    item.Detail = formItem.Detail;
+                    var item = Db.Get<Item>(id);
+                    if (item != null)
+                    {
+                        item.Summary = formItem.Summary;
+                        item.CompletedDate = formItem.CompletedDate;
+                        item.Detail = formItem.Detail;
 
-                    var tx = Db.BeginTransaction();
+                        Db.Update(item);
+                        tx.Commit();
 
-                    Db.Update(item);
-
-                    tx.Commit();
-
-                    return RedirectToAction("Index");
+                        return RedirectToAction("Index");
+                    }
                 }
 
             }
