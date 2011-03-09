@@ -7,18 +7,17 @@ namespace TodoNET.Helpers
 {
     public class PagedList<T> : List<T>
     {
-        public int TotalCount { get; set; }
-        public int PageSize { get; set; }
-        public int Page { get; set; }
+        public int TotalCount { get; private set; }
+        public int PageSize { get; private set; }
+        public int Page { get; private set; }
 
-        public PagedList(ICriteria criteria, int pageSize, int page)
+        public static PagedList<T> CreatePagedList(ICriteria criteria, int pageSize, int page)
         {
-            PageSize = pageSize;
-            Page = page;
+            var result = new PagedList<T>(pageSize, page);
 
             // clone criteria so we can count the total rows
             ICriteria countCriteria = CriteriaTransformer.Clone(criteria);
-            TotalCount = countCriteria
+            result.TotalCount = countCriteria
                             .SetProjection(Projections.RowCount())
                             .UniqueResult<int>();
 
@@ -33,7 +32,15 @@ namespace TodoNET.Helpers
                                 .List<T>();
 
             // add the page of items
-            AddRange(items);
+            result.AddRange(items);
+
+            return result;
+        }
+
+        private PagedList(int pageSize, int page)
+        {
+            PageSize = pageSize;
+            Page = page;
         }
 
 

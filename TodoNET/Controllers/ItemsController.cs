@@ -18,11 +18,10 @@ namespace TodoNET.Controllers
 
         public ActionResult Index(int projectId, int? page)
         {
-
             ICriteria criteria = Db.CreateCriteria<Item>()
                                     .Add(Restrictions.Eq("Project.Id", projectId));
 
-            var pagedItems = new PagedList<Item>(criteria, 5, page ?? 1);
+            var pagedItems = PagedList<Item>.CreatePagedList(criteria, 5, page ?? 1);
 
             return View(pagedItems);
         }
