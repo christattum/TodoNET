@@ -16,12 +16,12 @@ namespace TodoNET.Controllers
             Db = session;
         }
 
-        public ActionResult Index(int projectId, int? page)
+        public ActionResult Index(int projectId, int? page, string sort, string sortdir)
         {
             ICriteria criteria = Db.CreateCriteria<Item>()
                                     .Add(Restrictions.Eq("Project.Id", projectId));
 
-            var pagedItems = PagedList<Item>.CreatePagedList(criteria, 5, page ?? 1);
+            var pagedItems = PagedList<Item>.CreatePagedList(criteria, 5, page ?? 1, sort, sortdir);
 
             return View(pagedItems);
         }

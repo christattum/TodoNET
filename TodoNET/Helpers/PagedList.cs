@@ -11,7 +11,7 @@ namespace TodoNET.Helpers
         public int PageSize { get; private set; }
         public int Page { get; private set; }
 
-        public static PagedList<T> CreatePagedList(ICriteria criteria, int pageSize, int page)
+        public static PagedList<T> CreatePagedList(ICriteria criteria, int pageSize, int page, string sort=null, string sortdir=null)
         {
             var result = new PagedList<T>(pageSize, page);
 
@@ -24,6 +24,13 @@ namespace TodoNET.Helpers
 
             // clone criteria so we can filter to a page of T
             ICriteria itemCriteria = CriteriaTransformer.Clone(criteria);
+
+            // apply sorting for items (can't do this to criteria passed in (count won't work with an OrderBy), so that's why we do it internally here)
+            if (sort != null)
+            {
+                itemCriteria.AddOrder(sortdir == "DESC" ? Order.Desc(sort) : Order.Asc(sort));
+            }
+
 
             int firstResult = pageSize * (page - 1);
             IList<T> items = itemCriteria
