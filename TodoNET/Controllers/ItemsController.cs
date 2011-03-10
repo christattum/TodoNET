@@ -64,6 +64,7 @@ namespace TodoNET.Controllers
                         item.Detail = formItem.Detail;
 
                         Db.Update(item);
+
                         tx.Commit();
 
                         return RedirectToAction("Index", new {projectid = item.Project.Id});
