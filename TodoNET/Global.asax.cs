@@ -44,6 +44,7 @@ namespace TodoNET
 
             // Don't have this for AppHarbor!! Wonder if they have runtime check?
             //cfg.SetProperty(NHibernate.Cfg.Environment.ConnectionStringName, System.Environment.MachineName);
+            cfg.SetProperty(NHibernate.Cfg.Environment.ConnectionStringName, "AppHarbor");
             //NHibernateProfiler.Initialize();
           //  log4net.Config.XmlConfigurator.Configure(new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log4net.config")));
 
