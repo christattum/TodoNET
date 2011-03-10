@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Castle.Windsor;
-using HibernatingRhinos.Profiler.Appender.NHibernate;
+//using HibernatingRhinos.Profiler.Appender.NHibernate;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Context;
@@ -42,7 +42,7 @@ namespace TodoNET
         {
             var cfg = new Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nhibernate.config"));
             cfg.SetProperty(NHibernate.Cfg.Environment.ConnectionStringName, System.Environment.MachineName);
-            NHibernateProfiler.Initialize();
+            //NHibernateProfiler.Initialize();
           //  log4net.Config.XmlConfigurator.Configure(new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log4net.config")));
 
             return cfg.BuildSessionFactory();
