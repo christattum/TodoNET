@@ -17,5 +17,27 @@ namespace TodoNET.Model
         {
             Items = new HashSet<Item>();
         }
+
+        #region Object overrides
+        public override bool Equals(object obj)
+        {
+            if (obj is Project)
+            {
+                var compareTo = (Project)obj;
+                return compareTo.Id == Id;
+            }
+            return base.Equals(obj);
+        }
+
+        public override string ToString()
+        {
+            return Name;
+        }
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+        #endregion
+
     }
 }

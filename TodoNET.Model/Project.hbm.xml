@@ -10,9 +10,9 @@
         </id>
         <property name="Name" column="Name" type="string" not-null="true"/>
         <property name="Description" column="Description" type="string" not-null="false" />
-        <bag name="Items" inverse="true">
+        <set name="Items" inverse="true">
             <key column="ProjectId"></key>
             <one-to-many class="Item"/>
-        </bag>
+        </set>
     </class>
 </hibernate-mapping>
