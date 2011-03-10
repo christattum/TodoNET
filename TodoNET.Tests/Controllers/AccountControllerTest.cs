@@ -4,19 +4,19 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TodoNET;
+using NUnit.Framework;
 using TodoNET.Controllers;
 using TodoNET.Models;
+
 
 namespace TodoNET.Tests.Controllers
 {
 
-    [TestClass]
+    [TestFixture]
     public class AccountControllerTest
     {
 
-        [TestMethod]
+        [Test]
         public void ChangePassword_Get_ReturnsView()
         {
             // Arrange
@@ -26,11 +26,11 @@ namespace TodoNET.Tests.Controllers
             ActionResult result = controller.ChangePassword();
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsInstanceOf<ViewResult>(result);
             Assert.AreEqual(10, ((ViewResult)result).ViewData["PasswordLength"]);
         }
 
-        [TestMethod]
+        [Test]
         public void ChangePassword_Post_ReturnsRedirectOnSuccess()
         {
             // Arrange
@@ -46,12 +46,12 @@ namespace TodoNET.Tests.Controllers
             ActionResult result = controller.ChangePassword(model);
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
             RedirectToRouteResult redirectResult = (RedirectToRouteResult)result;
             Assert.AreEqual("ChangePasswordSuccess", redirectResult.RouteValues["action"]);
         }
 
-        [TestMethod]
+        [Test]
         public void ChangePassword_Post_ReturnsViewIfChangePasswordFails()
         {
             // Arrange
@@ -67,14 +67,14 @@ namespace TodoNET.Tests.Controllers
             ActionResult result = controller.ChangePassword(model);
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsInstanceOf<ViewResult>(result);
             ViewResult viewResult = (ViewResult)result;
             Assert.AreEqual(model, viewResult.ViewData.Model);
             Assert.AreEqual("The current password is incorrect or the new password is invalid.", controller.ModelState[""].Errors[0].ErrorMessage);
             Assert.AreEqual(10, viewResult.ViewData["PasswordLength"]);
         }
 
-        [TestMethod]
+        [Test]
         public void ChangePassword_Post_ReturnsViewIfModelStateIsInvalid()
         {
             // Arrange
@@ -91,13 +91,13 @@ namespace TodoNET.Tests.Controllers
             ActionResult result = controller.ChangePassword(model);
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsInstanceOf<ViewResult>(result);
             ViewResult viewResult = (ViewResult)result;
             Assert.AreEqual(model, viewResult.ViewData.Model);
             Assert.AreEqual(10, viewResult.ViewData["PasswordLength"]);
         }
 
-        [TestMethod]
+        [Test]
         public void ChangePasswordSuccess_ReturnsView()
         {
             // Arrange
@@ -107,10 +107,11 @@ namespace TodoNET.Tests.Controllers
             ActionResult result = controller.ChangePasswordSuccess();
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsInstanceOf<ViewResult>(result);
+        
         }
 
-        [TestMethod]
+        [Test]
         public void LogOff_LogsOutAndRedirects()
         {
             // Arrange
@@ -120,14 +121,14 @@ namespace TodoNET.Tests.Controllers
             ActionResult result = controller.LogOff();
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
             RedirectToRouteResult redirectResult = (RedirectToRouteResult)result;
             Assert.AreEqual("Home", redirectResult.RouteValues["controller"]);
             Assert.AreEqual("Index", redirectResult.RouteValues["action"]);
             Assert.IsTrue(((MockFormsAuthenticationService)controller.FormsService).SignOut_WasCalled);
         }
 
-        [TestMethod]
+        [Test]
         public void LogOn_Get_ReturnsView()
         {
             // Arrange
@@ -137,10 +138,10 @@ namespace TodoNET.Tests.Controllers
             ActionResult result = controller.LogOn();
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsInstanceOf<ViewResult>(result);
         }
 
-        [TestMethod]
+        [Test]
         public void LogOn_Post_ReturnsRedirectOnSuccess_WithoutReturnUrl()
         {
             // Arrange
@@ -156,14 +157,14 @@ namespace TodoNET.Tests.Controllers
             ActionResult result = controller.LogOn(model, null);
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
             RedirectToRouteResult redirectResult = (RedirectToRouteResult)result;
             Assert.AreEqual("Home", redirectResult.RouteValues["controller"]);
             Assert.AreEqual("Index", redirectResult.RouteValues["action"]);
             Assert.IsTrue(((MockFormsAuthenticationService)controller.FormsService).SignIn_WasCalled);
         }
 
-        [TestMethod]
+        [Test]
         public void LogOn_Post_ReturnsRedirectOnSuccess_WithLocalReturnUrl()
         {
             // Arrange
@@ -179,13 +180,13 @@ namespace TodoNET.Tests.Controllers
             ActionResult result = controller.LogOn(model, "/someUrl");
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(RedirectResult));
+            Assert.IsInstanceOf<RedirectResult>(result);
             RedirectResult redirectResult = (RedirectResult)result;
             Assert.AreEqual("/someUrl", redirectResult.Url);
             Assert.IsTrue(((MockFormsAuthenticationService)controller.FormsService).SignIn_WasCalled);
         }
 
-        [TestMethod]
+        [Test]
         public void LogOn_Post_ReturnsRedirectToHomeOnSuccess_WithExternalReturnUrl()
         {
             // Arrange
@@ -201,14 +202,14 @@ namespace TodoNET.Tests.Controllers
             ActionResult result = controller.LogOn(model, "http://malicious.example.net");
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
             RedirectToRouteResult redirectResult = (RedirectToRouteResult)result;
             Assert.AreEqual("Home", redirectResult.RouteValues["controller"]);
             Assert.AreEqual("Index", redirectResult.RouteValues["action"]);
             Assert.IsTrue(((MockFormsAuthenticationService)controller.FormsService).SignIn_WasCalled);
         }
 
-        [TestMethod]
+        [Test]
         public void LogOn_Post_ReturnsViewIfModelStateIsInvalid()
         {
             // Arrange
@@ -225,12 +226,12 @@ namespace TodoNET.Tests.Controllers
             ActionResult result = controller.LogOn(model, null);
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsInstanceOf<ViewResult>(result);
             ViewResult viewResult = (ViewResult)result;
             Assert.AreEqual(model, viewResult.ViewData.Model);
         }
 
-        [TestMethod]
+        [Test]
         public void LogOn_Post_ReturnsViewIfValidateUserFails()
         {
             // Arrange
@@ -246,13 +247,13 @@ namespace TodoNET.Tests.Controllers
             ActionResult result = controller.LogOn(model, null);
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsInstanceOf<ViewResult>(result);
             ViewResult viewResult = (ViewResult)result;
             Assert.AreEqual(model, viewResult.ViewData.Model);
             Assert.AreEqual("The user name or password provided is incorrect.", controller.ModelState[""].Errors[0].ErrorMessage);
         }
 
-        [TestMethod]
+        [Test]
         public void Register_Get_ReturnsView()
         {
             // Arrange
@@ -262,11 +263,11 @@ namespace TodoNET.Tests.Controllers
             ActionResult result = controller.Register();
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsInstanceOf<ViewResult>(result);
             Assert.AreEqual(10, ((ViewResult)result).ViewData["PasswordLength"]);
         }
 
-        [TestMethod]
+        [Test]
         public void Register_Post_ReturnsRedirectOnSuccess()
         {
             // Arrange
@@ -283,13 +284,13 @@ namespace TodoNET.Tests.Controllers
             ActionResult result = controller.Register(model);
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(RedirectToRouteResult));
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
             RedirectToRouteResult redirectResult = (RedirectToRouteResult)result;
             Assert.AreEqual("Home", redirectResult.RouteValues["controller"]);
             Assert.AreEqual("Index", redirectResult.RouteValues["action"]);
         }
 
-        [TestMethod]
+        [Test]
         public void Register_Post_ReturnsViewIfRegistrationFails()
         {
             // Arrange
@@ -306,14 +307,14 @@ namespace TodoNET.Tests.Controllers
             ActionResult result = controller.Register(model);
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsInstanceOf<ViewResult>(result);
             ViewResult viewResult = (ViewResult)result;
             Assert.AreEqual(model, viewResult.ViewData.Model);
             Assert.AreEqual("Username already exists. Please enter a different user name.", controller.ModelState[""].Errors[0].ErrorMessage);
             Assert.AreEqual(10, viewResult.ViewData["PasswordLength"]);
         }
 
-        [TestMethod]
+        [Test]
         public void Register_Post_ReturnsViewIfModelStateIsInvalid()
         {
             // Arrange
@@ -331,7 +332,7 @@ namespace TodoNET.Tests.Controllers
             ActionResult result = controller.Register(model);
 
             // Assert
-            Assert.IsInstanceOfType(result, typeof(ViewResult));
+            Assert.IsInstanceOf<ViewResult>(result);
             ViewResult viewResult = (ViewResult)result;
             Assert.AreEqual(model, viewResult.ViewData.Model);
             Assert.AreEqual(10, viewResult.ViewData["PasswordLength"]);

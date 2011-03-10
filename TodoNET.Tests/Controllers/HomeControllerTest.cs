@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TodoNET;
 using TodoNET.Controllers;
+using NUnit.Framework;
 
 namespace TodoNET.Tests.Controllers
 {
-    [TestClass]
+    [TestFixture]
     public class HomeControllerTest
     {
-        [TestMethod]
+        [Test]
         public void Index()
         {
             // Arrange
@@ -25,7 +25,7 @@ namespace TodoNET.Tests.Controllers
             Assert.AreEqual("Welcome to ASP.NET MVC!", result.ViewBag.Message);
         }
 
-        [TestMethod]
+        [Test]
         public void About()
         {
             // Arrange
