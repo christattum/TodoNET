@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Castle.Windsor;
+using HibernatingRhinos.Profiler.Appender.NHibernate;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Context;
@@ -23,26 +24,26 @@ namespace TodoNET
 
         public MvcApplication()
         {
-            BeginRequest += new EventHandler(MvcApplication_BeginRequest);
-            EndRequest += new EventHandler(MvcApplication_EndRequest);
+           // BeginRequest += new EventHandler(MvcApplication_BeginRequest);
+           // EndRequest += new EventHandler(MvcApplication_EndRequest);
         }
 
         void MvcApplication_EndRequest(object sender, EventArgs e)
         {
-            CurrentSessionContext.Unbind(SessionFactory).Dispose();
+            //CurrentSessionContext.Unbind(SessionFactory).Dispose();
         }
 
         void MvcApplication_BeginRequest(object sender, EventArgs e)
         {
-            CurrentSessionContext.Bind(SessionFactory.OpenSession());
+            //CurrentSessionContext.Bind(SessionFactory.OpenSession());
         }
 
         private static ISessionFactory CreateSessionFactory()
         {
             var cfg = new Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nhibernate.config"));
             cfg.SetProperty(NHibernate.Cfg.Environment.ConnectionStringName, System.Environment.MachineName);
-            //NHibernateProfiler.Initialize();
-            log4net.Config.XmlConfigurator.Configure(new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log4net.config")));
+            NHibernateProfiler.Initialize();
+          //  log4net.Config.XmlConfigurator.Configure(new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log4net.config")));
 
             return cfg.BuildSessionFactory();
 
