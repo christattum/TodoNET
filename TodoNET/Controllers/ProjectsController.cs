@@ -47,21 +47,22 @@ namespace TodoNET.Controllers
         {
             if (ModelState.IsValid)
             {
-                var project = Db.Get<Project>(id);
-                if (project != null)
+                using (var tx = Db.BeginTransaction())
                 {
-                    project.Name = formProject.Name;
-                    project.Description = formProject.Description;
-
-                    using (var tx = Db.BeginTransaction())
+                    var project = Db.Get<Project>(id);
+                    if (project != null)
                     {
+                        project.Name = formProject.Name;
+                        project.Description = formProject.Description;
+
                         Db.Update(project);
                         tx.Commit();
+
+                        return RedirectToAction("Index");
                     }
 
-                    return RedirectToAction("Index");
                 }
-            
+
             }
 
             return View(formProject);
