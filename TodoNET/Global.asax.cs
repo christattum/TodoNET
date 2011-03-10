@@ -41,7 +41,9 @@ namespace TodoNET
         private static ISessionFactory CreateSessionFactory()
         {
             var cfg = new Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nhibernate.config"));
-            cfg.SetProperty(NHibernate.Cfg.Environment.ConnectionStringName, System.Environment.MachineName);
+
+            // Don't have this for AppHarbor!! Wonder if they have runtime check?
+            //cfg.SetProperty(NHibernate.Cfg.Environment.ConnectionStringName, System.Environment.MachineName);
             //NHibernateProfiler.Initialize();
           //  log4net.Config.XmlConfigurator.Configure(new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log4net.config")));
 
