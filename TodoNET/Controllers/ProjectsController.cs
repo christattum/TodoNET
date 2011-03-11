@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using NHibernate;
+using TodoNET.Helpers;
 using TodoNET.Model;
 
 namespace TodoNET.Controllers
@@ -14,16 +15,17 @@ namespace TodoNET.Controllers
             Db = session;
         }
 
-        public ActionResult Index(int? page)
+        public ActionResult Index(int? page, string sort, string sortdir)
         {
             using (var tx = Db.BeginTransaction())
             {
                 ICriteria criteria = Db.CreateCriteria<Project>();
-                IList<Project> items = criteria.List<Project>();
+
+                var pagedProjects = PagedList<Project>.CreatePagedList(criteria, 5, page ?? 1, sort, sortdir);
 
                 tx.Commit();
 
-                return View(items);
+                return View(pagedProjects);
             }
 
         }

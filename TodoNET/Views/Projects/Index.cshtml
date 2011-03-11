@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TodoNET.Model.Project>
+﻿@model TodoNET.Helpers.PagedList<TodoNET.Model.Project>
 @{
     ViewBag.Title = "Projects";
 }
@@ -10,7 +10,9 @@
 </p>
 
     @{
-        var grid = new WebGrid(Model, canPage: true, rowsPerPage: 5);
+        var grid = new WebGrid(rowsPerPage: Model.PageSize);
+        var columnNames = new[] { "Name", "Description" };
+        grid.Bind(Model, columnNames, false, Model.TotalCount); // the row count
         grid.Pager(WebGridPagerModes.NextPrevious);
         @grid.GetHtml(tableStyle: "webGrid",
             htmlAttributes: new { id = "DataTable" },
@@ -28,4 +30,8 @@
             )
        );
 
+         if (Model.TotalCount == 0) {
+          <p>No projects found!</p>
+         }
+        
     }
