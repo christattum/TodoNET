@@ -119,6 +119,44 @@ namespace TodoNET.Controllers
             return View(formItem);
         }
 
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            using (var tx = Db.BeginTransaction())
+            {
+                var item = Db.Get<Item>(id);
+
+                tx.Commit();
+
+                if (item != null)
+                {
+                    return View(item);
+                }
+
+                return View("NotFound");
+            }
+        }
+
+
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection form)
+        {
+            using (var tx = Db.BeginTransaction())
+            {
+                var item = Db.Get<Item>(id);
+                if (item != null)
+                {
+                    Db.Delete(item);
+                    tx.Commit();
+                    return RedirectToAction("Index", new { projectid = item.Project.Id });
+                }
+
+                return View("NotFound");
+
+            }
+        }
+
+
 
     }
 }
