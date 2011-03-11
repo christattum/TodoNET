@@ -1,0 +1,47 @@
+﻿@model TodoNET.Model.Item
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Item</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Summary)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Summary)
+            @Html.ValidationMessageFor(model => model.Summary)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Detail)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Detail)
+            @Html.ValidationMessageFor(model => model.Detail)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CompletedDate)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.CompletedDate)
+            @Html.ValidationMessageFor(model => model.CompletedDate)
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+

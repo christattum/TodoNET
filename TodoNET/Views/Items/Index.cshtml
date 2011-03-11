@@ -1,4 +1,4 @@
-﻿@model TodoNET.Helpers.PagedList<TodoNET.Model.Item>
+﻿@model TodoNET.Controllers.ProjectItemsViewModel
 @{
     ViewBag.Title = "Tasks";
 }
@@ -6,13 +6,13 @@
 <h2>Tasks</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create", new { projectId = Model.Project.Id })
 </p>
 
     @{
-        var grid = new WebGrid(rowsPerPage: Model.PageSize);
+        var grid = new WebGrid(rowsPerPage: Model.Items.PageSize);
         var columnNames = new[] {"Summary", "Details", "CompletedDate"};
-        grid.Bind(Model, columnNames, false, Model.TotalCount); // the row count
+        grid.Bind(Model.Items, columnNames, false, Model.Items.TotalCount); // the row count
         grid.Pager(WebGridPagerModes.NextPrevious);
         @grid.GetHtml(tableStyle: "webGrid",
             htmlAttributes: new { id = "DataTable" },
@@ -30,7 +30,7 @@
             )
        );
 
-       if (Model.TotalCount == 0) {
+       if (Model.Items.TotalCount == 0) {
           <p>No items found!</p>
        }
         

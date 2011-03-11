@@ -7,6 +7,12 @@ using TodoNET.Model;
 
 namespace TodoNET.Controllers
 {
+    public class ProjectItemsViewModel
+    {
+        public Project Project { get; set; }
+        public PagedList<Item> Items { get; set; }
+    }
+
     public class ItemsController : Controller
     {
         // TODO: pull out all the NHib querying stuff into ItemsService
@@ -25,6 +31,9 @@ namespace TodoNET.Controllers
         {
             using (var tx = Db.BeginTransaction())
             {
+
+                var project = Db.Get<Project>(projectId);
+
                 ICriteria criteria = Db.CreateCriteria<Item>()
                     .Add(Restrictions.Eq("Project.Id", projectId));
 
@@ -32,9 +41,43 @@ namespace TodoNET.Controllers
 
                 tx.Commit();
 
-                return View(pagedItems);
+                var model = new ProjectItemsViewModel();
+                model.Project = project;
+                model.Items = pagedItems;
+
+                return View(model);
             }
         }
+
+
+        [HttpGet]
+        public ActionResult Create(int projectId)
+        {
+            var item = new Item();
+            return View(item);
+        }
+
+        [HttpPost]
+        public ActionResult Create(int projectId, Item formItem)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var tx = Db.BeginTransaction())
+                {
+                    var project = Db.Get<Project>(projectId);
+                    project.AddItem(formItem);
+
+                    Db.Save(formItem);
+                    tx.Commit();
+
+                    return RedirectToAction("Index", new {ProjectId = projectId});
+                }
+            }
+
+            return View(formItem);
+        }
+
+
 
 
         [HttpGet]

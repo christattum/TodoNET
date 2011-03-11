@@ -18,6 +18,12 @@ namespace TodoNET.Model
             Items = new HashSet<Item>();
         }
 
+        public virtual void AddItem(Item item)
+        {
+            Items.Add(item);
+            item.Project = this;
+        }
+
         #region Object overrides
         public override bool Equals(object obj)
         {
