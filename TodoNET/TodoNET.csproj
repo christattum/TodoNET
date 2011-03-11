@@ -88,6 +88,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AppSettings.cs" />
     <Compile Include="Helpers\PagedList.cs" />
     <Compile Include="Infrastructure\Bootstrapper.cs" />
     <Compile Include="Infrastructure\ControllersInstaller.cs" />

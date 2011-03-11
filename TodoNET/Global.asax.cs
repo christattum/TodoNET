@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -8,9 +9,9 @@ using System.Web.Routing;
 using Castle.Windsor;
 //using HibernatingRhinos.Profiler.Appender.NHibernate;
 using NHibernate;
-using NHibernate.Cfg;
 using NHibernate.Context;
 using TodoNET.Infrastructure;
+using Configuration = NHibernate.Cfg.Configuration;
 
 namespace TodoNET
 {
@@ -42,9 +43,17 @@ namespace TodoNET
         {
             var cfg = new Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nhibernate.config"));
 
-            // Don't have this for AppHarbor!! Wonder if they have runtime check?
-            //cfg.SetProperty(NHibernate.Cfg.Environment.ConnectionStringName, System.Environment.MachineName);
-            cfg.SetProperty(NHibernate.Cfg.Environment.ConnectionStringName, "AppHarbor");
+            if (Helpers.AppSettings.IsRelease())
+            {
+                // use AppHarbor connection string
+                cfg.SetProperty(NHibernate.Cfg.Environment.ConnectionStringName, "AppHarbor"); 
+            }
+            else
+            {
+                // use dev machine
+                cfg.SetProperty(NHibernate.Cfg.Environment.ConnectionStringName, System.Environment.MachineName);
+            }
+
             //NHibernateProfiler.Initialize();
           //  log4net.Config.XmlConfigurator.Configure(new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log4net.config")));
 
