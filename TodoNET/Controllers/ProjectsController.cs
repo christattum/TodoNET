@@ -28,18 +28,84 @@ namespace TodoNET.Controllers
 
         }
 
+        [HttpGet]
+        public ActionResult Create()
+        {
+            var project = new Project();
+            return View(project);
+        }
+
+        [HttpPost]
+        public ActionResult Create(Project formProject)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var tx = Db.BeginTransaction())
+                {
+                    Db.Save(formProject);
+                    tx.Commit();
+
+                    return RedirectToAction("Index");
+                }
+            }
+
+            return View(formProject);
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int id)
+        {
+            using (var tx = Db.BeginTransaction())
+            {
+                var project = Db.Get<Project>(id);
+                
+                tx.Commit();
+
+                if (project != null)
+                {
+                    return View(project);
+                }
+
+                return View("NotFound");
+
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int id, FormCollection form)
+        {
+            using (var tx = Db.BeginTransaction())
+            {
+                var project = Db.Get<Project>(id);
+                if (project != null)
+                {
+                    Db.Delete(project);
+                    tx.Commit();
+                    return RedirectToAction("Index");
+                }
+
+                return View("NotFound");
+
+            }
+        }
 
         [HttpGet]
         public ActionResult Edit(int id)
         {
             using (var tx = Db.BeginTransaction())
             {
-                var item = Db.Get<Project>(id);
+                var project = Db.Get<Project>(id);
 
                 tx.Commit();
 
-                return View(item);
+                if (project != null)
+                {
+                    return View(project);
+                }
+
+                return View("NotFound");
             }
+           
         }
 
         [HttpPost]
