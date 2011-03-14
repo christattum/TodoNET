@@ -26,7 +26,8 @@
                 ),
                 grid.Column("Summary"),
                 grid.Column("Detail"),
-                grid.Column("CompletedDate")
+                grid.Column(columnName: "CompletedDate", header: "Completed By", format: (item) => (item.CompletedDate != null) ? string.Format("{0:d}", item.CompletedDate) : "")
+               //grid.Column("CompletedDate")
             )
        );
 
