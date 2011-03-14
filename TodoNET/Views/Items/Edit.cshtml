@@ -27,7 +27,7 @@
             @Html.LabelFor(model => model.Summary)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Summary)
+            @Html.TextBoxFor(model => model.Summary, new { @class = "initial-focus" } )
             @Html.ValidationMessageFor(model => model.Summary)
         </div>
 
