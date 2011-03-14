@@ -1,14 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace TodoNET.Model
 {
     public class Item
     {
         public virtual int Id { get; protected set; }
+
+        [Required]
         public virtual string Summary { get; set; }
+
         public virtual string Detail { get; set; }
         public virtual DateTime? CompletedDate { get; set; }
 

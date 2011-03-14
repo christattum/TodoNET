@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TodoNET.Model
 {
     public class Project
     {
         public virtual int Id { get; protected set; }
+
+        [Required]
         public virtual string Name { get; set; }
+
         public virtual string Description { get; set; }
 
         public virtual ICollection<Item> Items { get; protected set; }
