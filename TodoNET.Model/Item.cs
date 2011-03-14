@@ -11,6 +11,8 @@ namespace TodoNET.Model
         public virtual string Summary { get; set; }
 
         public virtual string Detail { get; set; }
+
+        [DisplayFormat(ApplyFormatInEditMode=true, DataFormatString="{0:d}")]
         public virtual DateTime? CompletedDate { get; set; }
 
         public virtual Project Project { get; set; }
