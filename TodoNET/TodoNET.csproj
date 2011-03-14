@@ -101,6 +101,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Scripts\jquery.ui.datepicker-en-GB.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
