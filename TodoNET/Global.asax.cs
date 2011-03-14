@@ -1,47 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Castle.Windsor;
-using HibernatingRhinos.Profiler.Appender.NHibernate;
 using NHibernate;
-using NHibernate.Context;
 using TodoNET.Infrastructure;
-using Configuration = NHibernate.Cfg.Configuration;
 
 namespace TodoNET
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
-
     public class MvcApplication : System.Web.HttpApplication
     {
         public static ISessionFactory SessionFactory = CreateSessionFactory();
         private static IWindsorContainer _container;
 
-        public MvcApplication()
-        {
-           // BeginRequest += new EventHandler(MvcApplication_BeginRequest);
-           // EndRequest += new EventHandler(MvcApplication_EndRequest);
-        }
-
-        void MvcApplication_EndRequest(object sender, EventArgs e)
-        {
-            //CurrentSessionContext.Unbind(SessionFactory).Dispose();
-        }
-
-        void MvcApplication_BeginRequest(object sender, EventArgs e)
-        {
-            //CurrentSessionContext.Bind(SessionFactory.OpenSession());
-        }
-
         private static ISessionFactory CreateSessionFactory()
         {
-            var cfg = new Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nhibernate.config"));
+            var cfg = new NHibernate.Cfg.Configuration().Configure(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nhibernate.config"));
 
             if (Helpers.AppSettings.IsRelease())
             {
@@ -54,7 +28,7 @@ namespace TodoNET
                 cfg.SetProperty(NHibernate.Cfg.Environment.ConnectionStringName, System.Environment.MachineName);
             }
 
-            NHibernateProfiler.Initialize();
+            HibernatingRhinos.Profiler.Appender.NHibernate.NHibernateProfiler.Initialize();
           //  log4net.Config.XmlConfigurator.Configure(new FileInfo(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "log4net.config")));
 
             return cfg.BuildSessionFactory();
