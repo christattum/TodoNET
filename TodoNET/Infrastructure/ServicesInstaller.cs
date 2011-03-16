@@ -2,7 +2,7 @@
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using TodoNET.Models;
- 
+using TodoNET.Services;
 
 namespace TodoNET.Infrastructure
 {

@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using TodoNET.Services;
 
 namespace TodoNET.Models
 {
@@ -78,15 +76,6 @@ namespace TodoNET.Models
     // how to create an abstract wrapper around such a type in order to make the AccountController
     // code unit testable.
 
-    public interface IMembershipService
-    {
-        int MinPasswordLength { get; }
-
-        bool ValidateUser(string userName, string password);
-        MembershipCreateStatus CreateUser(string userName, string password, string email);
-        bool ChangePassword(string userName, string oldPassword, string newPassword);
-    }
-
     public class AccountMembershipService : IMembershipService
     {
         private readonly MembershipProvider _provider;
@@ -150,12 +139,6 @@ namespace TodoNET.Models
                 return false;
             }
         }
-    }
-
-    public interface IFormsAuthenticationService
-    {
-        void SignIn(string userName, bool createPersistentCookie);
-        void SignOut();
     }
 
     public class FormsAuthenticationService : IFormsAuthenticationService

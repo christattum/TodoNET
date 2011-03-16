@@ -94,6 +94,8 @@
     <Compile Include="Infrastructure\ServicesInstaller.cs" />
     <Compile Include="Infrastructure\WindsorControllerFactory.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Services\IMembershipService.cs" />
+    <Compile Include="Services\IFormsAuthenticationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

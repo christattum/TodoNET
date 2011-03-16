@@ -28,6 +28,7 @@
 [Db]ebug/
 .svn/
 obj/
+App_Data/
 [Rr]elease/
 _ReSharper*/
 [Tt]est[Rr]esult*

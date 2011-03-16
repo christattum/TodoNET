@@ -7,6 +7,7 @@ using System.Web.Security;
 using NUnit.Framework;
 using TodoNET.Controllers;
 using TodoNET.Models;
+using TodoNET.Services;
 
 
 namespace TodoNET.Tests.Controllers
