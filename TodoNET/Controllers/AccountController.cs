@@ -16,14 +16,6 @@ namespace TodoNET.Controllers
             MembershipService = membershipService;
         }
 
-        //protected override void Initialize(RequestContext requestContext)
-        //{
-        //    if (FormsService == null) { FormsService = new FormsAuthenticationService(); }
-        //    if (MembershipService == null) { MembershipService = new AccountMembershipService(); }
-
-        //    base.Initialize(requestContext);
-        //}
-
         // **************************************
         // URL: /Account/LogOn
         // **************************************
