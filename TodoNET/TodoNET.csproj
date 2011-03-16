@@ -93,7 +93,9 @@
     <Compile Include="Infrastructure\NHibernateInstaller.cs" />
     <Compile Include="Infrastructure\ServicesInstaller.cs" />
     <Compile Include="Infrastructure\WindsorControllerFactory.cs" />
+    <Compile Include="Authentication\AccountMembershipService.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Authentication\FormsAuthenticationService.cs" />
     <Compile Include="Services\IMembershipService.cs" />
     <Compile Include="Services\IFormsAuthenticationService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

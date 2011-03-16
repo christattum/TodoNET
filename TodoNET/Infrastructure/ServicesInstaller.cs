@@ -1,7 +1,7 @@
 ﻿using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
-using TodoNET.Models;
+using TodoNET.Authentication;
 using TodoNET.Services;
 
 namespace TodoNET.Infrastructure
@@ -12,7 +12,6 @@ namespace TodoNET.Infrastructure
         {
             container.Register(Component.For<IMembershipService>().ImplementedBy<AccountMembershipService>().LifeStyle.PerWebRequest);
             container.Register(Component.For<IFormsAuthenticationService>().ImplementedBy<FormsAuthenticationService>().LifeStyle.PerWebRequest);
-
         }
     }
 }
