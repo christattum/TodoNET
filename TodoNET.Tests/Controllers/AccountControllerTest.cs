@@ -341,10 +341,8 @@ namespace TodoNET.Tests.Controllers
         private static AccountController GetAccountController()
         {
             RequestContext requestContext = new RequestContext(new MockHttpContext(), new RouteData());
-            AccountController controller = new AccountController()
+            AccountController controller = new AccountController(new MockFormsAuthenticationService(), new MockMembershipService())
             {
-                FormsService = new MockFormsAuthenticationService(),
-                MembershipService = new MockMembershipService(),
                 Url = new UrlHelper(requestContext),
             };
             controller.ControllerContext = new ControllerContext()

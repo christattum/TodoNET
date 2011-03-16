@@ -13,17 +13,22 @@ namespace TodoNET.Controllers
 {
     public class AccountController : Controller
     {
+        public IFormsAuthenticationService FormsService { get; private set; }
+        public IMembershipService MembershipService { get; private set; }
 
-        public IFormsAuthenticationService FormsService { get; set; }
-        public IMembershipService MembershipService { get; set; }
-
-        protected override void Initialize(RequestContext requestContext)
+        public AccountController(IFormsAuthenticationService formsService, IMembershipService membershipService)
         {
-            if (FormsService == null) { FormsService = new FormsAuthenticationService(); }
-            if (MembershipService == null) { MembershipService = new AccountMembershipService(); }
-
-            base.Initialize(requestContext);
+            FormsService = formsService;
+            MembershipService = membershipService;
         }
+
+        //protected override void Initialize(RequestContext requestContext)
+        //{
+        //    if (FormsService == null) { FormsService = new FormsAuthenticationService(); }
+        //    if (MembershipService == null) { MembershipService = new AccountMembershipService(); }
+
+        //    base.Initialize(requestContext);
+        //}
 
         // **************************************
         // URL: /Account/LogOn
