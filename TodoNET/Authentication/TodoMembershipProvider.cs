@@ -44,7 +44,7 @@ namespace TodoNET.Authentication
             bool result = false;
             try
             {
-                using (ISession session = MvcApplication.SessionFactory.OpenSession())
+                using (var session = MvcApplication.SessionFactory.OpenSession())
                 {
                     User member = session.CreateCriteria<User>()
                         .Add(Expression.Eq("UserName", username))
@@ -69,6 +69,11 @@ namespace TodoNET.Authentication
             }
         }
 
+        public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
+        {
+            throw new NotImplementedException();
+        }
+
         public override string ApplicationName
         {
             get
@@ -91,10 +96,7 @@ namespace TodoNET.Authentication
             throw new NotImplementedException();
         }
 
-        public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public override bool DeleteUser(string username, bool deleteAllRelatedData)
         {

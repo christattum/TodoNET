@@ -9,7 +9,6 @@
         <property name="UserName" column="UserName" type="string" length="50" not-null="true" unique="true"/>
         <property name="Email" column="Email" type="string" length="100" not-null="true" unique="true"/>
         <property name="Password" column="Password" type="string" length="50" not-null="true"/>
-        <property name="LockedOut" column="LockedOut" type="bool" not-null="true" />
         <set name="Roles" table="UserRoles" cascade="save-update" fetch="subselect">
             <key column="UserId" />
             <many-to-many class="Role" column="RoleId" />

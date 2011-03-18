@@ -49,8 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DBScripts\Create.sql" />
-    <Content Include="Role.hbm.xml" />
-    <Content Include="User.hbm.xml" />
+    <EmbeddedResource Include="Role.hbm.xml" />
+    <EmbeddedResource Include="User.hbm.xml" />
     <EmbeddedResource Include="Item.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>

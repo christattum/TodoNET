@@ -46,7 +46,22 @@ CREATE TABLE UserRoles (
 )	
 GO
 
+-- Test Membership Data
+INSERT INTO Roles(name) VALUES('Admin')
+INSERT INTO Roles(name) VALUES('Member')
+GO
 
+INSERT INTO Users(UserName, Email, Password) VALUES('admin', 'admin@christattum.co.uk', 'adminpass123')
+INSERT INTO Users(UserName, Email, Password) VALUES('chris', 'mail@christattum.co.uk', 'chrispass123')
+
+-- One user in Admin role
+INSERT INTO UserRoles(RoleId, UserId) VALUES(1, 1) -- admin
+
+-- One user is in Member role
+INSERT INTO UserRoles(RoleId, UserId) VALUES(2, 2) -- chris
+
+
+-- Test Project Data
 INSERT INTO Projects([Name], [Description]) 
 	VALUES('Test', 'Test Project')
 GO

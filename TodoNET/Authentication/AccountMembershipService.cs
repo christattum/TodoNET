@@ -40,6 +40,7 @@ namespace TodoNET.Authentication
             if (String.IsNullOrEmpty(password)) throw new ArgumentException("Value cannot be null or empty.", "password");
             if (String.IsNullOrEmpty(email)) throw new ArgumentException("Value cannot be null or empty.", "email");
 
+            // TODO: Call our own service to create user
             MembershipCreateStatus status;
             _provider.CreateUser(userName, password, email, null, null, true, null, out status);
             return status;
@@ -55,6 +56,7 @@ namespace TodoNET.Authentication
             // than return false in certain failure scenarios.
             try
             {
+                // TODO: Call our own service to change password
                 MembershipUser currentUser = _provider.GetUser(userName, true /* userIsOnline */);
                 return currentUser.ChangePassword(oldPassword, newPassword);
             }
