@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" 
+                    assembly="TodoNET.Model" 
+                    namespace="TodoNET.Model" >
+    <class name="User"  table="Users">
+        <id name="Id" column="UserId" type="Int32" unsaved-value="0">
+            <generator class="native"></generator>
+        </id>
+        <property name="UserName" column="UserName" type="string" length="50" not-null="true" unique="true"/>
+        <property name="Email" column="Email" type="string" length="100" not-null="true" unique="true"/>
+        <property name="Password" column="Password" type="string" length="50" not-null="true"/>
+        <property name="LockedOut" column="LockedOut" type="bool" not-null="true" />
+        <set name="Roles" table="UserRoles" cascade="save-update" fetch="subselect">
+            <key column="UserId" />
+            <many-to-many class="Role" column="RoleId" />
+        </set>
+    </class>
+</hibernate-mapping>
+

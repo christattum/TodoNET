@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                    assembly="TodoNET.Model" 
+                    namespace="TodoNET.Model" >
+    <class name="Role"  table="Roles">
+        <id name="Id" column="RoleId" type="Int32" unsaved-value="0">
+            <generator class="native"></generator>
+        </id>
+        <property name="Name" column="Name" type="string" length="50" not-null="true" unique="true"/>
+        <set name="Users" table="UserRoles" cascade="save-update" fetch="subselect">
+            <key column="RoleId" />
+            <many-to-many class="User" column="UserId" />
+        </set>
+    </class>
+</hibernate-mapping>
+
