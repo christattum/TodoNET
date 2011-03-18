@@ -22,6 +22,30 @@ CREATE TABLE Items (
 )
 GO
 
+-- Membership
+CREATE TABLE Users
+(
+	UserId int IDENTITY(1,1) NOT NULL CONSTRAINT PK_User PRIMARY KEY,
+	UserName nvarchar(50) NOT NULL CONSTRAINT UQ_Users_UserName UNIQUE,
+	Email nvarchar(100) NOT NULL CONSTRAINT UQ_Users_Email UNIQUE,
+	Password nvarchar(50) NOT NULL
+)
+GO
+
+CREATE TABLE Roles 
+(
+    RoleId int IDENTITY(1,1) NOT NULL CONSTRAINT PK_Role PRIMARY KEY,
+    Name nvarchar(50) NOT NULL CONSTRAINT UQ_Roles_Name UNIQUE
+)
+GO
+
+CREATE TABLE UserRoles (
+    UserId int NOT NULL CONSTRAINT FK_UserRole FOREIGN KEY REFERENCES Users(UserId),
+    RoleId int NOT NULL CONSTRAINT FK_RoleUser FOREIGN KEY REFERENCES Roles(RoleId),
+    CONSTRAINT PK_UserRoles PRIMARY KEY (UserId, RoleId)
+)	
+GO
+
 
 INSERT INTO Projects([Name], [Description]) 
 	VALUES('Test', 'Test Project')
