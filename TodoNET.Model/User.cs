@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace AperioReal.Membership
+namespace TodoNET.Model
 {
     public class User
     {

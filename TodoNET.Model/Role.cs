@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AperioReal.Membership
+namespace TodoNET.Model
 {
     public class Role
     {
